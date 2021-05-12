@@ -3,6 +3,7 @@ package com.example.suivi_des_employes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.renderscript.Sampler;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,11 +23,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class AjouterEmploye extends AppCompatActivity {
-EditText nom,prenom,tel,mission,dateDepart,dateFin;
-Button ajouter;
-DatabaseReference reff;
-Employe employe;
-long id=0;
+private EditText nom,prenom,tel,mission,dateDepart,dateFin;
+private Button ajouter,retourner;
+private DatabaseReference reff;
+private Employe employe;
+private long id=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +39,7 @@ long id=0;
         dateDepart=findViewById(R.id.date_deppart);
         dateFin=findViewById(R.id.date_fin);
         ajouter=findViewById(R.id.ajouter);
+        retourner = findViewById(R.id.retourner);
         reff= FirebaseDatabase.getInstance().getReference().child("Employés");
         reff.addValueEventListener(new ValueEventListener() {
             @Override
@@ -50,8 +54,10 @@ long id=0;
 
             }
         });
+
         employe=new Employe();
         ajouter.setOnClickListener(this::ajouter);
+        retourner.setOnClickListener(this::retourner);
     }
     public void ajouter (View view){
         employe.setNom(nom.getText().toString().trim());
@@ -65,10 +71,17 @@ long id=0;
         }
         else
         {
-            reff.child(String.valueOf(id+1)).setValue(employe);
-            Toast.makeText(AjouterEmploye.this,"Les données sont enregistrés avec succès",Toast.LENGTH_LONG).show();
+            reff.child(String.valueOf(id+1)).setValue(employe).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull  Task<Void> task) {
+                    Toast.makeText(AjouterEmploye.this,"Les données sont enregistrés avec succès",Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(AjouterEmploye.this,AffichageEmployes.class));
+                }
+            });
+
         }
-
-
+    }
+    public void retourner (View view){
+        startActivity(new Intent(AjouterEmploye.this,MainActivity.class));
     }
 }
