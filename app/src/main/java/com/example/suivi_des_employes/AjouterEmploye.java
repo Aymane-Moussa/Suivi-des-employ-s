@@ -71,7 +71,7 @@ private long id=0;
         }
         else
         {
-            reff.child(String.valueOf(id+1)).setValue(employe).addOnCompleteListener(new OnCompleteListener<Void>() {
+            reff.child(String.valueOf(id)).setValue(employe).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull  Task<Void> task) {
                     Toast.makeText(AjouterEmploye.this,"Les données sont enregistrés avec succès",Toast.LENGTH_LONG).show();
