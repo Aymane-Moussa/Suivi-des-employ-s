@@ -8,6 +8,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.ColorSpace;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,9 +26,9 @@ import java.util.ArrayList;
 
 import static androidx.core.content.ContextCompat.startActivity;
 
-public class AffichageEmployes extends AppCompatActivity {
+public class AffichageEmployes extends AppCompatActivity implements MyAdapter.OnItemListner {
     private FirebaseDatabase db=FirebaseDatabase.getInstance();
-    DatabaseReference reff=db.getReference().child("Employés");
+    private DatabaseReference reff=db.getReference().child("Employés");
     private RecyclerView recyclerView;
     private MyAdapter adapter;
     private ArrayList<Employe> list;
@@ -33,15 +41,39 @@ public class AffichageEmployes extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         list=new ArrayList<>();
-        adapter=new MyAdapter(this,list);
+        adapter=new MyAdapter(this,list, this::onItemClick);
         recyclerView.setAdapter(adapter);
+
         reff.addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                list.clear();
                 for (DataSnapshot dataSnapshot:snapshot.getChildren()) {
                     Employe employe =dataSnapshot.getValue(Employe.class);
                     list.add(employe);
                 }
+                adapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
+
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        this.list.remove(position);
+
+        reff.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                reff.child(String.valueOf(position)).removeValue();
                 adapter.notifyDataSetChanged();
             }
 
@@ -50,5 +82,7 @@ public class AffichageEmployes extends AppCompatActivity {
 
             }
         });
+        // notify db
+//        adapter.notifyDataSetChanged();
     }
 }
