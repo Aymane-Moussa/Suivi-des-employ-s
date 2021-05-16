@@ -58,13 +58,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.mission.setText(employe.getMission());
         holder.dateDepart.setText(employe.getDateDepart());
         holder.dateFin.setText(employe.getDateFin());
+        holder.latitude.setText(employe.getLatitude());
+        holder.longitude.setText(employe.getLongitude());
         /* La partie editer dans adpter*/
         holder.editer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final DialogPlus dialogPlus = DialogPlus.newDialog(holder.editer.getContext())
                         .setContentHolder(new ViewHolder(R.layout.dialogcontent))
-                        .setExpanded(true, 2150)
+                        .setExpanded(true, 1750)
                         .create();
                 View myview = dialogPlus.getHolderView();
                 final EditText nom = myview.findViewById(R.id.nomupd);
@@ -72,6 +74,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 final EditText tele = myview.findViewById(R.id.teleupd);
                 final EditText mission = myview.findViewById(R.id.missionupd);
                 final EditText dateDepart = myview.findViewById(R.id.date_deppartupd);
+                final EditText latitude = myview.findViewById(R.id.latitudeupd);
+                final EditText longitude = myview.findViewById(R.id.longitudeupd);
                 Button submit = myview.findViewById(R.id.usubmit);
                 final EditText dateFin = myview.findViewById(R.id.date_finupd);
 
@@ -81,6 +85,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 mission.setText(employe.getMission());
                 dateDepart.setText(employe.getDateDepart());
                 dateFin.setText(employe.getDateFin());
+                latitude.setText(employe.getLatitude());
+                longitude.setText(employe.getLongitude());
                 dialogPlus.show();
                 submit.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -92,6 +98,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                         map.put("mission", mission.getText().toString());
                         map.put("dateDepart", dateDepart.getText().toString());
                         map.put("dateFin", dateFin.getText().toString());
+                        map.put("latitude",latitude.getText().toString());
+                        map.put("longitude",longitude.getText().toString());
                         FirebaseDatabase.getInstance().getReference().child("Employés")
                                 .child(String.valueOf(position)).updateChildren(map)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -120,7 +128,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView nom, prenom, tel, mission, dateDepart, dateFin;
+        TextView nom, prenom, tel, mission, dateDepart, dateFin, latitude, longitude;
         Button editer;
         OnItemListner onItemListner;
 
@@ -132,6 +140,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             mission = itemView.findViewById(R.id.mission);
             dateDepart = itemView.findViewById(R.id.date_deppart);
             dateFin = itemView.findViewById(R.id.date_fin);
+            latitude=itemView.findViewById(R.id.latitude);
+            longitude=itemView.findViewById(R.id.longitude);
             /* La partie editer dans adpter*/
             editer = itemView.findViewById(R.id.edit_data);
 
@@ -146,7 +156,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         private void clickOnEdit(View view) {
             TextView text = itemView.findViewById(R.id.edit_data);
             text.setText(nom.getText().toString());
-            nom.getContext().startActivity(new Intent(itemView.getContext(), EditerEmploye.class));
         }
 
         @Override

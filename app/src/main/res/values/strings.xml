@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Suivi_des_employes</string>
+    <string name="title_activity_position_employes_maps">Map</string>
 </resources>

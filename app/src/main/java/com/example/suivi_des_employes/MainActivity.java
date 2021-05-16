@@ -29,11 +29,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void openSupprimer(View view){
-        Intent intent=new Intent(this,SupprimerEmploye.class);
+        Intent intent=new Intent(this,AffichageEmployes.class);
         startActivity(intent);
     }
     public void openEditer(View view){
-        Intent intent=new Intent(this,EditerEmploye.class);
+        Intent intent=new Intent(this,AffichageEmployes.class);
         startActivity(intent);
     }
     public void openAffichage(View view){
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void openPosition(View view){
-        Intent intent=new Intent(this,PositionEmployes.class);
+        Intent intent=new Intent(this,PositionEmployesMaps.class);
         startActivity(intent);
     }
 
