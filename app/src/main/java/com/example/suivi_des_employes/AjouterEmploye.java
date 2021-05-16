@@ -51,7 +51,6 @@ private long id=0;
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
 
@@ -75,10 +74,15 @@ private long id=0;
                 @Override
                 public void onComplete(@NonNull  Task<Void> task) {
                     Toast.makeText(AjouterEmploye.this,"Les données sont enregistrés avec succès",Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(AjouterEmploye.this,AffichageEmployes.class));
+//                    startActivity(new Intent(AjouterEmploye.this,AffichageEmployes.class));
+                    nom.setText("");
+                    prenom.setText("");
+                    tel.setText("");
+                    mission.setText("");
+                    dateDepart.setText("");
+                    dateFin.setText("");
                 }
             });
-
         }
     }
     public void retourner (View view){
