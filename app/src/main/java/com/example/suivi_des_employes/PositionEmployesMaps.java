@@ -6,12 +6,9 @@ import androidx.fragment.app.FragmentActivity;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
-
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -30,7 +27,7 @@ public class PositionEmployesMaps extends FragmentActivity implements OnMapReady
 
     private GoogleMap mMap;
     private ActivityPositionEmployesMapsBinding binding;
-    private ChildEventListener mChildEventListener;
+//    private ChildEventListener mChildEventListener;
     private DatabaseReference mEmployes;
     Marker marker;
 
@@ -106,7 +103,7 @@ public class PositionEmployesMaps extends FragmentActivity implements OnMapReady
     }
 
     @Override
-    public boolean onMarkerClick(@NonNull @org.jetbrains.annotations.NotNull Marker marker) {
+    public boolean onMarkerClick(@NonNull Marker marker) {
         return false;
     }
 

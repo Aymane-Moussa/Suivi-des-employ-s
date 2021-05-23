@@ -2,15 +2,12 @@ package com.example.suivi_des_employes;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.renderscript.Sampler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -18,9 +15,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class AjouterEmploye extends AppCompatActivity {
 private EditText nom,prenom,tel,mission,dateDepart,dateFin,latitude,longitude;
@@ -69,7 +63,9 @@ private long id=0;
         employe.setDateFin(dateFin.getText().toString().trim());
         employe.setLatitude(latitude.getText().toString().trim());
         employe.setLongitude(longitude.getText().toString().trim());
-        if(nom.getText().toString().trim().equals("")||prenom.getText().toString().trim().equals("")||tel.getText().toString().trim().equals("")||mission.getText().toString().trim().equals("")||dateDepart.getText().toString().trim()==""||dateFin.getText().toString().trim().equals("") || latitude.getText().toString().trim().equals("") || longitude.getText().toString().trim().equals("")){
+        if(nom.getText().toString().trim().equals("")||prenom.getText().toString().trim().equals("")||tel.getText().toString().trim().equals("")||
+                mission.getText().toString().trim().equals("")||dateDepart.getText().toString().trim()==""||dateFin.getText().toString().trim().equals("") ||
+                latitude.getText().toString().trim().equals("") || longitude.getText().toString().trim().equals("")){
             Toast.makeText(AjouterEmploye.this,"Tous les champs doivent être remplis",Toast.LENGTH_LONG).show();
         }
         else
@@ -78,7 +74,6 @@ private long id=0;
                 @Override
                 public void onComplete(@NonNull  Task<Void> task) {
                     Toast.makeText(AjouterEmploye.this,"Les données sont enregistrés avec succès",Toast.LENGTH_LONG).show();
-//                  startActivity(new Intent(AjouterEmploye.this,AffichageEmployes.class));
                     nom.setText("");
                     prenom.setText("");
                     tel.setText("");

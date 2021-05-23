@@ -1,24 +1,18 @@
 package com.example.suivi_des_employes;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
@@ -27,8 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
-
-import static androidx.core.content.ContextCompat.startActivity;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
@@ -66,7 +58,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             public void onClick(View v) {
                 final DialogPlus dialogPlus = DialogPlus.newDialog(holder.editer.getContext())
                         .setContentHolder(new ViewHolder(R.layout.dialogcontent))
-                        .setExpanded(true, 1750)
+                        .setExpanded(true, 2450)
                         .create();
                 View myview = dialogPlus.getHolderView();
                 final EditText nom = myview.findViewById(R.id.nomupd);
@@ -98,8 +90,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                         map.put("mission", mission.getText().toString());
                         map.put("dateDepart", dateDepart.getText().toString());
                         map.put("dateFin", dateFin.getText().toString());
-                        map.put("latitude",latitude.getText().toString());
-                        map.put("longitude",longitude.getText().toString());
+                        map.put("latitude", latitude.getText().toString());
+                        map.put("longitude", longitude.getText().toString());
                         FirebaseDatabase.getInstance().getReference().child("Employés")
                                 .child(String.valueOf(position)).updateChildren(map)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -140,8 +132,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             mission = itemView.findViewById(R.id.mission);
             dateDepart = itemView.findViewById(R.id.date_deppart);
             dateFin = itemView.findViewById(R.id.date_fin);
-            latitude=itemView.findViewById(R.id.latitude);
-            longitude=itemView.findViewById(R.id.longitude);
+            latitude = itemView.findViewById(R.id.latitude);
+            longitude = itemView.findViewById(R.id.longitude);
             /* La partie editer dans adpter*/
             editer = itemView.findViewById(R.id.edit_data);
 
