@@ -58,7 +58,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             public void onClick(View v) {
                 final DialogPlus dialogPlus = DialogPlus.newDialog(holder.editer.getContext())
                         .setContentHolder(new ViewHolder(R.layout.dialogcontent))
-                        .setExpanded(true, 2450)
+                        .setExpanded(true, 1750)
                         .create();
                 View myview = dialogPlus.getHolderView();
                 final EditText nom = myview.findViewById(R.id.nomupd);

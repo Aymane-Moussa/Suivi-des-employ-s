@@ -34,8 +34,6 @@ import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
-
-
 import java.io.InputStream;
 import java.util.Random;
 
@@ -105,11 +103,11 @@ public class AdminInscription extends AppCompatActivity {
                     passwordRegistration.requestFocus();
                     return;
                 }else if (password.length() < 6){
-                    passwordRegistration.setError("Longeur du mot de passe ingerieur a 6!!!");
+                    passwordRegistration.setError("Longeur du mot de passe inférieur à 6!!!");
                     passwordRegistration.requestFocus();
                     return;
                 }else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-                    emailRegistration.setError("Longeur du mot de passe ingerieur a 6!!!");
+                    emailRegistration.setError("Longeur du mot de passe inférieur à 6!!!");
                     emailRegistration.requestFocus();
                 }else{
                     mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
